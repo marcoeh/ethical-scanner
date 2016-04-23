@@ -1,0 +1,23 @@
+@mixin fontTitle() {
+	font-weight: 600;
+	font-size: 60px;
+	color: $colorWhite;
+	letter-spacing: -0.11px;
+	line-height: 60px;
+}
+
+@mixin fontBig() {
+	font-weight: 600;
+	font-size: 40px;
+	color: $colorWhite;
+	letter-spacing: -0.11px;
+	line-height: 40px;
+}
+
+@mixin fontInfo() {
+	font-weight: 300;
+	font-size: 18px;
+	color: #FFFFFF;
+	letter-spacing: -0.11px;
+	line-height: 18px;
+}

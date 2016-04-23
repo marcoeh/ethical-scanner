@@ -1,0 +1,144 @@
+@import "../css/normalize";
+@import "../css/variables";
+@import "../css/mixins";
+@import "../css/typography";
+@import "../css/layout";
+
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+	box-sizing: border-box;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+html {
+	height: 100%;
+}
+html, body {
+	font-size: 100%;
+	background: $colorMainDark;
+	font-family: 'Work Sans', sans-serif;
+}
+
+h1,h2,h3,h4,h5,p {
+	margin: 0;
+}
+
+.view {
+
+	position: absolute;
+	visibility: hidden;
+	height: 100%;
+	width: 100%;
+	&.is-active {
+		visibility: visible;
+	}
+
+	&__wrapper {
+		background: $colorMainDark;
+		width: 1024px;
+		height: 768px;
+		border: 1px solid $colorWhite;
+		margin: 0 auto;
+		@include absolutecenter($axis: "both");
+	}
+	&__content {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		padding: 60px 120px;
+	}
+	&__title {
+		@include fontTitle;
+		text-align: center;
+		padding-top: 340px;
+		margin: 0;
+	}
+	&__info {
+		@include fontInfo;
+
+		&--call-to-scan {
+			text-align: center;
+			display: block;
+			margin: 0;
+			position: absolute;
+			bottom: 100px;
+			@include absolutecenter($axis: "x");
+		}
+		&--icon-scan {
+			position: absolute;
+			bottom: 40px;
+			@include absolutecenter($axis: "x");
+		}
+	}
+}
+
+.ethic-level-setting {
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+	&__title {
+		@include fontTitle;
+	}
+	&__dots {
+		position: absolute;
+		bottom: 60px;
+		width: 100%;
+		height: 200px;
+		display: flex;
+		justify-content: space-between;
+
+	}
+	&__dot {
+		width: 84px;
+		height: 84px;
+		border-radius: 100%;
+		border: 1px solid $colorWhite;
+		margin-bottom: 20px;
+		background: $colorMainDark;
+
+
+		&-wrapper {
+			z-index: 100;
+
+			&.is-selected {
+				.ethic-level-setting {
+					&__dot {
+						background: $colorWhite;
+
+						&-number {
+							color: $colorMainDark;
+						}
+					}
+				}
+			}
+		}
+
+		&-number {
+			@include fontBig;
+			text-align: center;
+			padding: 20px 0;
+		}
+
+		&-line {
+			border-bottom: 1px solid $colorWhite;
+			position: absolute;
+			top: 41px;
+			left: 0px;
+			width: 100%;
+			z-index: 1;
+		}
+
+		&-info {
+			@include fontInfo;
+			text-align: center;
+		}
+	}
+}
+
+.product {
+	@include fontTitle;
+}

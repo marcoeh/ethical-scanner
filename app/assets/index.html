@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+	<title>Ethical Meat Scanner</title>
+	<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+	<script src="https://assets.shiftr.io/js/mqtt-latest.js"></script>
+	<script src="/main.js"></script>
+	<script>
+		require('initialize');
+		require('main');
+	</script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,100,200,300,500,600,700,800,900" type="text/css">
+	<link rel="stylesheet" href="main.css" type="text/css">
+</head>
+
+<body>
+	<div class="view__wrapper">
+		<div class="view view--welcome">
+			<div class="view__content view__content--welcome">
+				<h1 class="view__title">Ethical Meat Scanner</h1>
+				<p class="view__info view__info--call-to-scan">Please scan your Product.</p>
+				<svg class="view__info--icon-scan" width="50" height="29" viewBox="0 0 50 29" xmlns="http://www.w3.org/2000/svg"><title>Scan</title><g stroke="#FFF" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M49.04 18.393C42.8 24.636 34.174 28.497 24.646 28.497c-9.528 0-18.153-3.86-24.396-10.104M40.557 9.908c-4.07 4.07-9.696 6.588-15.912 6.588-6.21 0-11.835-2.517-15.906-6.588M32.07 1.42c-1.9 1.903-4.525 3.076-7.426 3.076-2.895 0-5.52-1.173-7.422-3.075"/></g></svg>
+			</div>
+		</div>
+		<div class="view view--level-setting is-active">
+			<div class="view__content view__content--level-setting">
+				<h2 class="product">Rindsvoressen M-Budget</h2>
+				<div class="ethic-level-setting">
+					<h2 class="ethic-level-setting__title">Set your level of ethics:</h2>
+					<div class="ethic-level-setting__dots">
+						<div class="ethic-level-setting__dot-line"></div>
+						<div class="ethic-level-setting__dot-wrapper is-selected">
+							<div class="ethic-level-setting__dot">
+								<p class="ethic-level-setting__dot-number">1</p>
+							</div>
+							<p class="ethic-level-setting__dot-info">Maeh…</p>
+						</div>
+						<div class="ethic-level-setting__dot-wrapper">
+							<div class="ethic-level-setting__dot">
+								<p class="ethic-level-setting__dot-number">2</p>
+							</div>
+							<p class="ethic-level-setting__dot-info">Hmmm…</p>
+						</div>
+						<div class="ethic-level-setting__dot-wrapper">
+							<div class="ethic-level-setting__dot">
+								<p class="ethic-level-setting__dot-number">3</p>
+							</div>
+							<p class="ethic-level-setting__dot-info">Ohhhhh…</p>
+						</div>
+						<div class="ethic-level-setting__dot-wrapper">
+							<div class="ethic-level-setting__dot">
+								<p class="ethic-level-setting__dot-number">4</p>
+							</div>
+							<p class="ethic-level-setting__dot-info">Wuuaaa…</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="view view--question">
+		</div>
+
+
+
+<!--         <div class="ethic-level-wrapper">
+			<p class="ehtic-level">Ethic Level: <span class="ethic-level-number">None</span></p>
+		</div>
+		<div class="questions-wrapper">
+			<p class="question">Not working.</p>
+		</div>
+		<div class="state-dots">
+			<div class="state-dot" id="state-dot-1"></div>
+			<div class="state-dot" id="state-dot-2"></div>
+			<div class="state-dot" id="state-dot-3"></div>
+			<div class="state-dot" id="state-dot-4"></div>
+		</div>
+		<div class="state-wrapper">
+			<p class="state">1</p>
+		</div>
+ -->        <!-- <button id="button">Click Me</button> -->
+	</div>
+</body>
+
+</html>
