@@ -61,7 +61,7 @@ h1,h2,h3,h4,h5,p {
 	&__title {
 		@include fontTitle;
 		text-align: center;
-		padding-top: 340px;
+		padding-top: 260px;
 		margin: 0;
 	}
 	&__info {
@@ -151,6 +151,11 @@ h1,h2,h3,h4,h5,p {
 
 .product {
 	@include fontTitle;
+	padding-top: 24px;
+
+	&__title {
+		@include fontInfo;
+	}
 }
 
 .question {

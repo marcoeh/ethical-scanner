@@ -49,6 +49,8 @@ $(function() {
 
             switch (state) {
                 case "100":
+                    $('.view').removeClass("is-last");
+                    $('.view').removeClass("is-active");
                     $('.view--welcome').addClass("is-active");
                     break;
                 case "200":
@@ -88,8 +90,8 @@ $(function() {
                     break;
                 case "500":
                     $('.view--question-4').removeClass("is-last");
-                    $('.view--question-results').removeClass("is-active");
-                    $('.view--question-results').addClass("is-last");
+                    $('.view--results').removeClass("is-active");
+                    $('.view--results').addClass("is-last");
                     $('.view--done').addClass("is-active");
                     break;
                 default:
