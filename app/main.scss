@@ -32,8 +32,16 @@ h1,h2,h3,h4,h5,p {
 	visibility: hidden;
 	height: 100%;
 	width: 100%;
+	left: 100%;
+	transition: all 0.4s ease-in-out;
+
 	&.is-active {
+		left: 0;
 		visibility: visible;
+	}
+
+	&.is-last {
+		left: -100%;
 	}
 
 	&__wrapper {
@@ -82,6 +90,8 @@ h1,h2,h3,h4,h5,p {
 
 	&__title {
 		@include fontTitle;
+		position: absolute;
+		bottom: 280px;
 	}
 	&__dots {
 		position: absolute;
@@ -141,4 +151,27 @@ h1,h2,h3,h4,h5,p {
 
 .product {
 	@include fontTitle;
+}
+
+.question {
+	@include fontTitle;
+}
+
+.results {
+	@include fontInfo;
+	margin-bottom: 40px;
+	&__title {
+		@include fontTitle;
+	}
+	&__call-to-print {
+		@include fontInfo;
+	}
+}
+
+.done {
+	@include fontTitle;
+
+	&__title {
+		@include fontTitle;
+	}
 }
