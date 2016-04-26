@@ -115,16 +115,8 @@ void serialEvent (Serial scannerSerialPort) {
   // Check if one of the buttons is pressed
   if (inByte == buttonYes || inByte == buttonNo) {
 
-  	// Check if we are in the state of scanned product and Yes has been pressed
-    if (state == 200 && inByte == buttonYes) {
-      println("Button pressed: Yes for state 200");
-	  	// Go to questions
-      state = 301;
-      println("State changed to 301 after Yes for state 200");
-    }
-
   	// If we are in the state range of the questions
-    else if (state > 300 && state < 400) {
+    if (state > 300 && state < 400) {
 
     	// Publish a Yes as anwser and save it to the results string
 	    if (inByte == buttonYes) {
@@ -169,6 +161,14 @@ void serialEvent (Serial scannerSerialPort) {
   	// Jump to start if button is pressed on done view
     else if (state == 500) {
       state = 100;
+    }
+
+  	// Check if we are in the state of scanned product and Yes has been pressed
+    else if (state == 200 && inByte == buttonYes) {
+      println("Button pressed: Yes for state 200");
+	  	// Go to questions
+      state = 301;
+      println("State changed to 301 after Yes for state 200");
     }
 
   	// Apologize else
