@@ -154,12 +154,12 @@ void serialEvent (Serial scannerSerialPort) {
     }
 
   	// Jump to next state if button is pressed on results view
-    else if (state == 400) {
+    else if (state == 400 && inByte == buttonYes) {
       state = 500;
     }
 
   	// Jump to start if button is pressed on done view
-    else if (state == 500) {
+    else if (state == 500 && inByte == buttonYes) {
       state = 100;
     }
 
