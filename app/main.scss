@@ -160,6 +160,10 @@ h1,h2,h3,h4,h5,p {
 
 .question {
 	@include fontTitle;
+
+	&__answer-call {
+		@include fontInfo;
+	}
 }
 
 .results {
@@ -179,4 +183,8 @@ h1,h2,h3,h4,h5,p {
 	&__title {
 		@include fontTitle;
 	}
+}
+
+.answer {
+	@include fontTitle;
 }

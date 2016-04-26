@@ -54,6 +54,7 @@ $(function() {
                     $('.view--welcome').addClass("is-active");
                     break;
                 case "200":
+		            $('#sound-yep').get(0).play();
                     $('.view--welcome').removeClass("is-active");
                     $('.view--welcome').addClass("is-last");
                     $('.view--level-setting').addClass("is-active");
@@ -103,6 +104,9 @@ $(function() {
         } else if (topic == "/results") {
             $('.results').empty();
             $('.results').append(message.toString());
+        } else if (topic == "/answer") {
+            $('.answer').empty();
+            $('.answer').append(message.toString());
         } else {
             console.log('Nothing to do');
         }
