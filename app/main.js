@@ -101,6 +101,7 @@ $(function() {
             $('.question').empty();
             $('.question').append(message.toString());
         } else if (topic == "/results") {
+            $('.results').empty();
             $('.results').append(message.toString());
         } else {
             console.log('Nothing to do');
