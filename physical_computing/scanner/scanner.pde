@@ -111,40 +111,71 @@ void draw() {
 
 void serialEvent (Serial scannerSerialPort) {
   int inByte = scannerSerialPort.read();
+
+  // Check if one of the buttons is pressed
   if (inByte == buttonYes || inByte == buttonNo) {
-    if (state > 300 && state <= 303 && question < 3) {
+
+  	// Check if we are in the state of scanned product and Yes has been pressed
+    if (state == 200 && inByte == buttonYes) {
+      println("Button pressed: Yes for state 200");
+	  	// Go to questions
+      state = 301;
+      println("State changed to 301 after Yes for state 200");
+    }
+
+  	// If we are in the state range of the questions
+    else if (state > 300 && state < 400) {
+
+    	// Publish a Yes as anwser and save it to the results string
+	    if (inByte == buttonYes) {
+	      client.publish("/answer", "Yes");
+	      results += "Frage: " + questions[(ethicLevel-1)][question] + "<br> Ethik-Level " + ethicLevel + "– Yes<br><br>";
+	      println("Button pressed and result saved: Yes");
+
+    	// Publish a No as anwser and save it to the results string
+	    } else if (inByte == buttonNo) {
+	      client.publish("/answer", "No");
+	      results += "Frage: " + questions[(ethicLevel-1)][question] + "<br> Ethik-Level " + ethicLevel + "– No<br><br>";
+	      println("Button pressed and result saved: No");
+	    }
+	  }
+
+  	// Publish the results if we've arrived the last question
+    if (state == 304) {
+      client.publish("/results", results);
+      println("Results submitted after Yes");
+    }
+
+  	// Increase question number if we havn't arrived the last one
+  	if (state > 300 && state <= 303) {
       question = question + 1;
+      println("Question increased by one");
+
       state = state + 1;
-    } else if (state == 304 && question == 3) {
+      println("State increased by one");
+  	}
+
+  	// Reset question number and go to next state if we've arrived the last question
+  	else if (state == 304) {
       question = 0;
       state = 400;
-    } else if (state == 400) {
+    }
+
+  	// Jump to next state if button is pressed on results view
+    else if (state == 400) {
       state = 500;
-    } else if (state == 500) {
+    }
+
+  	// Jump to start if button is pressed on done view
+    else if (state == 500) {
       state = 100;
-    } else {
+    }
+
+  	// Apologize else
+    else {
       println("Yes or No buttons not matching condition!");
     }
-    if (inByte == buttonYes && state > 300 && state < 400) {
-      client.publish("/answer", "Yes");
-      results += "Frage: " + questions[(ethicLevel-1)][question] + "<br> Ethik-Level " + ethicLevel + "– Yes<br><br>";
-      println("Button pressed and result saved: Yes");
-      if (state == 304) {
-        client.publish("/results", results);
-        println("Results submitted after Yes");
-      }
-    } else if (inByte == buttonNo && state > 300 && state < 400) {
-      client.publish("/answer", "No");
-      results += "Frage: " + questions[(ethicLevel-1)][question] + "<br> Ethik-Level " + ethicLevel + "– No<br><br>";
-      println("Button pressed and result saved: No");
-      if (state == 304) {
-        client.publish("/results", results);
-        println("Results submitted after No");
-      }
-    } else if (inByte == buttonYes && state == 200) {
-      println("Button pressed: Yes for state 200");
-      state = 301;
-    }
+
   } else if (inByte == 10) {
     ethicLevel = 1;
   } else if (inByte == 20) {
