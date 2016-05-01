@@ -101,6 +101,7 @@ void draw() {
 		println("input: "+input);
 		input = "";
 		results = "";
+		client.publish("/sounds", "yep");
 		state = 200;
 	}
 
