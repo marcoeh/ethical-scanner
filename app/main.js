@@ -127,6 +127,8 @@ $(function() {
 		clientId: 'browser'
 	});
 
+	var slideDelay = 800;
+
 	client.on('connect', function() {
 		console.log('client has connected!');
 
@@ -189,28 +191,40 @@ $(function() {
 					$('.view--question-1').addClass("is-active");
 					break;
 				case "302":
-					$('.view--level-setting').removeClass("is-last");
-					$('.view--question-1').removeClass("is-active");
-					$('.view--question-1').addClass("is-last");
-					$('.view--question-2').addClass("is-active");
+					setTimeout(function() {
+						$('.answer').empty();
+						$('.view--level-setting').removeClass("is-last");
+						$('.view--question-1').removeClass("is-active");
+						$('.view--question-1').addClass("is-last");
+						$('.view--question-2').addClass("is-active");
+					}, slideDelay);
 					break;
 				case "303":
-					$('.view--question-1').removeClass("is-last");
-					$('.view--question-2').removeClass("is-active");
-					$('.view--question-2').addClass("is-last");
-					$('.view--question-3').addClass("is-active");
+					setTimeout(function() {
+						$('.answer').empty();
+						$('.view--question-1').removeClass("is-last");
+						$('.view--question-2').removeClass("is-active");
+						$('.view--question-2').addClass("is-last");
+						$('.view--question-3').addClass("is-active");
+					}, slideDelay);
 					break;
 				case "304":
-					$('.view--question-2').removeClass("is-last");
-					$('.view--question-3').removeClass("is-active");
-					$('.view--question-3').addClass("is-last");
-					$('.view--question-4').addClass("is-active");
+					setTimeout(function() {
+						$('.answer').empty();
+						$('.view--question-2').removeClass("is-last");
+						$('.view--question-3').removeClass("is-active");
+						$('.view--question-3').addClass("is-last");
+						$('.view--question-4').addClass("is-active");
+					}, slideDelay);
 					break;
 				case "400":
-					$('.view--question-3').removeClass("is-last");
-					$('.view--question-4').removeClass("is-active");
-					$('.view--question-4').addClass("is-last");
-					$('.view--results').addClass("is-active");
+					setTimeout(function() {
+						$('.answer').empty();
+						$('.view--question-3').removeClass("is-last");
+						$('.view--question-4').removeClass("is-active");
+						$('.view--question-4').addClass("is-last");
+						$('.view--results').addClass("is-active");
+					}, slideDelay);
 					break;
 				case "500":
 					$('.view--question-4').removeClass("is-last");
@@ -222,8 +236,10 @@ $(function() {
 					$('.state').append("Error Yo");
 			}
 		} else if (topic == "/questions") {
-			$('.question').empty();
-			$('.question').append(message.toString());
+			setTimeout(function() {
+				$('.question').empty();
+				$('.question').append(message.toString());
+			}, slideDelay);
 		} else if (topic == "/results") {
 			$('.results').empty();
 			$('.results').append(message.toString());
@@ -232,7 +248,6 @@ $(function() {
 			//yepSound.play();
 			$('#sound-'+sound).get(0).play();
 		} else if (topic == "/answer") {
-			$('.answer').empty();
 			$('.answer').append(message.toString());
 		} else {
 			console.log('Nothing to do');

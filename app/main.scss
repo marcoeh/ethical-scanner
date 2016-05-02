@@ -48,7 +48,7 @@ h1,h2,h3,h4,h5,p {
 		background: $colorMainDark;
 		width: 1024px;
 		height: 768px;
-		border: 1px solid $colorWhite;
+		//border: 1px solid $colorWhite;
 		margin: 0 auto;
 		@include absolutecenter($axis: "both");
 	}
@@ -186,5 +186,6 @@ h1,h2,h3,h4,h5,p {
 }
 
 .answer {
-	@include fontTitle;
+	@include fontHuge;
+	margin-top: 100px;
 }

@@ -3,7 +3,7 @@
 	font-size: 60px;
 	color: $colorWhite;
 	letter-spacing: -0.11px;
-	line-height: 60px;
+	line-height: 1;
 	margin-bottom: 40px;
 }
 
@@ -12,7 +12,15 @@
 	font-size: 40px;
 	color: $colorWhite;
 	letter-spacing: -0.11px;
-	line-height: 40px;
+	line-height: 1;
+}
+
+@mixin fontHuge() {
+	font-weight: 600;
+	font-size: 120px;
+	color: $colorWhite;
+	letter-spacing: -0.11px;
+	line-height: 1;
 }
 
 @mixin fontInfo() {
@@ -20,5 +28,5 @@
 	font-size: 18px;
 	color: #FFFFFF;
 	letter-spacing: -0.11px;
-	line-height: 18px;
+	line-height: 1;
 }
