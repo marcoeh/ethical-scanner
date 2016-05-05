@@ -42,7 +42,7 @@ String[][] questions = {
 	 "2-2: Wurde das Tier mit Nahrung gefüttert, das auch in der Schweiz produziert wurde?",
 	 "2-3: Wurden den Tieren Antibiotika verabreicht und hat dies schlussendlich gesundheitliche Konsequenzen für mich?",
 	 "2-4: Hat der Bauernhof, auf dem das Tier aufgewachsen ist wirklich so schön ausgesehen? Könnte man diesen einmal besuchen?"},
-	{"3-1: Wie glücklich was das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
+	{"3-1: Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
 	 "3-2: Gibt es Teile des Tieres, die nicht verwendet wurden? Wenn ja, können Sie mir sagen welche?",
 	 "3-3: Sollte jeder wöchentlich einen fleischfreien Tag einlegen, so dass jährlich 157 Millionen Tiere vor der Schlachtbank verschont werden?",
 	 "3-4: Entstehen bei der Tieraufzucht und Fleischverarbeitung nicht deutlich mehr Treibhausgase als bei der Herstellung anderer Gerichte?"},

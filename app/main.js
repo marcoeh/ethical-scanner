@@ -175,11 +175,13 @@ $(function() {
 
 			switch (state) {
 				case "100":
-					$('.view').removeClass("is-last");
-					$('.view').removeClass("is-active");
+					$('.view--results').removeClass("is-last");
+					$('.view--done').removeClass("is-active");
+					$('.view--done').addClass("is-last");
 					$('.view--welcome').addClass("is-active");
 					break;
 				case "200":
+					$('.view--done').removeClass("is-last");
 					$('.view--welcome').removeClass("is-active");
 					$('.view--welcome').addClass("is-last");
 					$('.view--level-setting').addClass("is-active");

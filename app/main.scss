@@ -20,6 +20,14 @@ html, body {
 	font-size: 100%;
 	background: $colorMainDark;
 	font-family: 'Work Sans', sans-serif;
+
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* Internet Explorer/Edge */
+	user-select: none;           /* Non-prefixed version, currently
+	                              not supported by any browser */
 }
 
 h1,h2,h3,h4,h5,p {
@@ -46,11 +54,16 @@ h1,h2,h3,h4,h5,p {
 
 	&__wrapper {
 		background: $colorMainDark;
-		width: 1024px;
-		height: 768px;
-		//border: 1px solid $colorWhite;
+		width: 100vw;
+		height: 100vh;
 		margin: 0 auto;
 		@include absolutecenter($axis: "both");
+		overflow: hidden;
+
+		/* Desktop-Style */
+		//width: 1024px;
+		//height: 768px;
+		//border: 1px solid $colorWhite;
 	}
 	&__content {
 		position: relative;
@@ -160,6 +173,7 @@ h1,h2,h3,h4,h5,p {
 
 .question {
 	@include fontTitle;
+	margin-top: 40px;
 
 	&__answer-call {
 		@include fontInfo;
