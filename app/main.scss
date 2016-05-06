@@ -4,6 +4,40 @@
 @import "../css/typography";
 @import "../css/layout";
 
+@font-face {
+    font-family: "gt-walsheim";
+    src: url("fonts/gt-walsheim-regular.woff") format('woff');
+}
+
+@font-face {
+    font-family: "gt-walsheim";
+    src: url("fonts/gt-walsheim-bold.woff") format('woff');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "gt-sectra-display";
+    src: url("fonts/GT-Sectra-Display-Regular.woff") format('woff');
+}
+
+@font-face {
+    font-family: "gt-sectra-display";
+    src: url("fonts/GT-Sectra-Display-Bold.woff") format('woff');
+    font-weight: bold;
+}
+
+// @font-face {
+//     font-family: "gt-walsheim";
+//     src: url("fonts/awesome-font-boldoblique.woff") format('woff');
+//     font-weight: bold;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: "gt-walsheim";
+//     src: url("fonts/awesome-font-oblique.woff") format('woff');
+//     font-style: italic;
+// }
 
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
@@ -19,7 +53,7 @@ html {
 html, body {
 	font-size: 100%;
 	background: $colorMainDark;
-	font-family: 'Work Sans', sans-serif;
+	font-family: 'gt-walsheim', sans-serif;
 
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -54,16 +88,16 @@ h1,h2,h3,h4,h5,p {
 
 	&__wrapper {
 		background: $colorMainDark;
-		width: 100vw;
-		height: 100vh;
+		// width: 100vw;
+		// height: 100vh;
 		margin: 0 auto;
 		@include absolutecenter($axis: "both");
 		overflow: hidden;
 
 		/* Desktop-Style */
-		//width: 1024px;
-		//height: 768px;
-		//border: 1px solid $colorWhite;
+		width: 1024px;
+		height: 768px;
+		border: 1px solid $colorWhite;
 	}
 	&__content {
 		position: relative;
@@ -92,6 +126,43 @@ h1,h2,h3,h4,h5,p {
 			position: absolute;
 			bottom: 40px;
 			@include absolutecenter($axis: "x");
+		}
+	}
+	&__status {
+		&-dots {
+			position: absolute;
+			bottom: 60px;
+			width: 200px;
+			height: 16px;
+			display: flex;
+			justify-content: space-between;
+			@include absolutecenter($axis: "x");
+			visibility: hidden;
+
+			&.is-visible {
+				visibility: visible;
+			}
+		}
+		&-dot {
+			width: 16px;
+			height: 16px;
+			border: 1px solid $colorWhite;
+			border-radius: 100%;
+			background: $colorMainDark;
+			z-index: 100;
+
+			&.is-active {
+				background: $colorWhite;
+			}
+		}
+		&-line {
+			position: absolute;
+			bottom: 8px;
+			width: 184px;
+			height: 1px;
+			background: $colorWhite;
+			@include absolutecenter($axis: "x");
+			z-index: 1;
 		}
 	}
 }
@@ -178,6 +249,12 @@ h1,h2,h3,h4,h5,p {
 	&__answer-call {
 		@include fontInfo;
 	}
+
+	&__rule {
+		height: 1px;
+		background: $colorWhite;
+		margin-top: 8px;
+	}
 }
 
 .results {
@@ -188,6 +265,7 @@ h1,h2,h3,h4,h5,p {
 	}
 	&__call-to-print {
 		@include fontInfo;
+		margin-top: 16px;
 	}
 }
 

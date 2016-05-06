@@ -129,7 +129,7 @@ void serialEvent (Serial scannerSerialPort) {
 			// Publish a No as anwser and save it to the results string
 			} else if (inByte == buttonNo) {
 				client.publish("/answer", "No");
-				results += "Frage: " + questions[(ethicLevel-1)][question] + "<br> Ethik-Level " + ethicLevel + "– No<br><br>";
+				//results += "Frage: " + questions[(ethicLevel-1)][question] + "<br> Ethik-Level " + ethicLevel + "– No<br><br>";
 				println("Button pressed and result saved: No");
 			}
 		}
