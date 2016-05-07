@@ -74,7 +74,7 @@ $(function() {
 					break;
 				case "302":
 					setTimeout(function() {
-						$('.answer').empty();
+						// $('.answer').empty();
 						$('.view--level-setting').removeClass("is-last");
 						$('.view--question-1').removeClass("is-active");
 						$('.view--question-1').addClass("is-last");
@@ -84,7 +84,7 @@ $(function() {
 					break;
 				case "303":
 					setTimeout(function() {
-						$('.answer').empty();
+						// $('.answer').empty();
 						$('.view--question-1').removeClass("is-last");
 						$('.view--question-2').removeClass("is-active");
 						$('.view--question-2').addClass("is-last");
@@ -94,7 +94,7 @@ $(function() {
 					break;
 				case "304":
 					setTimeout(function() {
-						$('.answer').empty();
+						// $('.answer').empty();
 						$('.view--question-2').removeClass("is-last");
 						$('.view--question-3').removeClass("is-active");
 						$('.view--question-3').addClass("is-last");
@@ -105,7 +105,7 @@ $(function() {
 				case "400":
 					setTimeout(function() {
 						$('.view__question-static-content').removeClass("is-visible");
-						$('.answer').empty();
+						// $('.answer').empty();
 						$('.view--question-3').removeClass("is-last");
 						$('.view--question-4').removeClass("is-active");
 						$('.view--question-4').addClass("is-last");
@@ -134,7 +134,7 @@ $(function() {
 			//yepSound.play();
 			$('#sound-'+sound).get(0).play();
 		} else if (topic == "/answer") {
-			$('.answer').append(message.toString());
+			// $('.answer').append(message.toString());
 		} else {
 			console.log('Nothing to do');
 		}
