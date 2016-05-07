@@ -25,8 +25,16 @@
 
 @mixin fontInfo() {
 	font-weight: 300;
-	font-size: 18px;
-	color: #FFFFFF;
+	font-size: 30px;
+	color: $colorWhite;
+	letter-spacing: -0.11px;
+	line-height: 1.05;
+}
+
+@mixin fontInfoSmall() {
+	font-weight: 300;
+	font-size: 20px;
+	color: $colorWhite;
 	letter-spacing: -0.11px;
 	line-height: 1.05;
 }
