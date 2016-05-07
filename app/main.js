@@ -6,6 +6,7 @@ $(function() {
 	});
 
 	var slideDelay = 800;
+	var state;
 
 	client.on('connect', function() {
 		console.log('client has connected!');
@@ -49,7 +50,7 @@ $(function() {
 		} else if (topic == "/state") {
 			$('.state').empty();
 
-			var state = message.toString();
+			state = message.toString();
 
 			switch (state) {
 				case "100":
@@ -57,6 +58,13 @@ $(function() {
 					$('.view--done').removeClass("is-active");
 					$('.view--done').addClass("is-last");
 					$('.view--welcome').addClass("is-active");
+
+
+					$('.view__question-static-call-to-answer').removeClass("is-visible");
+
+					$('.question').empty();
+					$('.question').removeClass("is-animating-yes");
+					$('.question').removeClass("is-animating-no");
 					break;
 				case "200":
 					$('.view--done').removeClass("is-last");
@@ -68,52 +76,55 @@ $(function() {
 					$('.view--welcome').removeClass("is-last");
 					$('.view--level-setting').removeClass("is-active");
 					$('.view--level-setting').addClass("is-last");
-					$('.view--question-1').addClass("is-active");
+					$('.view--question').addClass("is-active");
 					$('.view__question-static-content').addClass("is-visible");
 					$('.view__question-static-status-bar').css( "width", "25%" );
+					$('.view__question-static-call-to-answer').addClass("is-visible");
+
+					$('.question--1').addClass("is-active");
 					break;
 				case "302":
 					setTimeout(function() {
-						// $('.answer').empty();
 						$('.view--level-setting').removeClass("is-last");
-						$('.view--question-1').removeClass("is-active");
-						$('.view--question-1').addClass("is-last");
-						$('.view--question-2').addClass("is-active");
 						$('.view__question-static-status-bar').css( "width", "50%" );
+
+						$('.question--1').removeClass("is-active");
+						$('.question--2').addClass("is-active");
+
 					}, slideDelay);
 					break;
 				case "303":
 					setTimeout(function() {
-						// $('.answer').empty();
-						$('.view--question-1').removeClass("is-last");
-						$('.view--question-2').removeClass("is-active");
-						$('.view--question-2').addClass("is-last");
-						$('.view--question-3').addClass("is-active");
 						$('.view__question-static-status-bar').css( "width", "75%" );
+
+						$('.question--2').removeClass("is-active");
+						$('.question--3').addClass("is-active");
+
 					}, slideDelay);
 					break;
 				case "304":
 					setTimeout(function() {
-						// $('.answer').empty();
-						$('.view--question-2').removeClass("is-last");
-						$('.view--question-3').removeClass("is-active");
-						$('.view--question-3').addClass("is-last");
-						$('.view--question-4').addClass("is-active");
 						$('.view__question-static-status-bar').css( "width", "100%" );
+
+						$('.question--3').removeClass("is-active");
+						$('.question--4').addClass("is-active");
+
 					}, slideDelay);
 					break;
 				case "400":
 					setTimeout(function() {
 						$('.view__question-static-content').removeClass("is-visible");
-						// $('.answer').empty();
-						$('.view--question-3').removeClass("is-last");
-						$('.view--question-4').removeClass("is-active");
-						$('.view--question-4').addClass("is-last");
+						$('.question--4').removeClass("is-active");
+
+						$('.view--level-setting').removeClass("is-last");
+						$('.view--question').removeClass("is-active");
+						$('.view--question').addClass("is-last");
 						$('.view--results').addClass("is-active");
+
 					}, slideDelay);
 					break;
 				case "500":
-					$('.view--question-4').removeClass("is-last");
+					$('.view--question').removeClass("is-last");
 					$('.view--results').removeClass("is-active");
 					$('.view--results').addClass("is-last");
 					$('.view--done').addClass("is-active");
@@ -122,10 +133,22 @@ $(function() {
 					$('.state').append("Error Yo");
 			}
 		} else if (topic == "/questions") {
-			setTimeout(function() {
-				$('.question').empty();
-				$('.question').append(message.toString());
-			}, slideDelay);
+			switch (state) {
+				case "301":
+					$('.question--1').append(message.toString());
+					break;
+				case "302":
+					$('.question--2').append(message.toString());
+					break;
+				case "303":
+					$('.question--3').append(message.toString());
+					break;
+				case "304":
+					$('.question--4').append(message.toString());
+					break;
+				default:
+					$('.question').append("Error Yo");
+			}
 		} else if (topic == "/results") {
 			$('.results').empty();
 			$('.results').append(message.toString());
@@ -134,7 +157,40 @@ $(function() {
 			//yepSound.play();
 			$('#sound-'+sound).get(0).play();
 		} else if (topic == "/answer") {
-			// $('.answer').append(message.toString());
+
+			var answer = message.toString();
+
+			switch (state) {
+				case "301":
+					if (answer == "Yes") {
+						$('.question--1').addClass("is-animating-yes");
+					} else {
+						$('.question--1').addClass("is-animating-no");
+					}
+					break;
+				case "302":
+					if (answer == "Yes") {
+						$('.question--2').addClass("is-animating-yes");
+					} else {
+						$('.question--2').addClass("is-animating-no");
+					}
+					break;
+				case "303":
+					if (answer == "Yes") {
+						$('.question--3').addClass("is-animating-yes");
+					} else {
+						$('.question--3').addClass("is-animating-no");
+					}
+					break;
+				case "304":
+					if (answer == "Yes") {
+						$('.question--4').addClass("is-animating-yes");
+					} else {
+						$('.question--4').addClass("is-animating-no");
+					}
+					break;
+				default:
+			}
 		} else {
 			console.log('Nothing to do');
 		}
