@@ -6,24 +6,20 @@
 
 @font-face {
     font-family: "gt-walsheim";
+    src: url("fonts/gt-walsheim-light.woff") format('woff');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "gt-walsheim";
     src: url("fonts/gt-walsheim-regular.woff") format('woff');
+    font-weight: 500;
 }
 
 @font-face {
     font-family: "gt-walsheim";
     src: url("fonts/gt-walsheim-bold.woff") format('woff');
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: "gt-sectra-display";
-    src: url("fonts/GT-Sectra-Display-Regular.woff") format('woff');
-}
-
-@font-face {
-    font-family: "gt-sectra-display";
-    src: url("fonts/GT-Sectra-Display-Bold.woff") format('woff');
-    font-weight: bold;
+    font-weight: 700;
 }
 
 // @font-face {
@@ -103,7 +99,7 @@ h1,h2,h3,h4,h5,p {
 		position: relative;
 		height: 100%;
 		width: 100%;
-		padding: 60px 120px;
+		padding: 60px 60px;
 	}
 	&__title {
 		@include fontTitle;
@@ -245,9 +241,11 @@ h1,h2,h3,h4,h5,p {
 .question {
 	@include fontTitle;
 	margin-top: 40px;
+	text-align: center;
 
 	&__answer-call {
 		@include fontInfo;
+		text-align: center;
 	}
 
 	&__rule {
