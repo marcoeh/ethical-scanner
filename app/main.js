@@ -69,8 +69,8 @@ $(function() {
 					$('.view--level-setting').removeClass("is-active");
 					$('.view--level-setting').addClass("is-last");
 					$('.view--question-1').addClass("is-active");
-					$('.view__status-dots').addClass("is-visible");
-					$('.view__status-dot--1').addClass("is-active");
+					$('.view__question-static-content').addClass("is-visible");
+					$('.view__question-static-status-bar').css( "width", "25%" );
 					break;
 				case "302":
 					setTimeout(function() {
@@ -79,8 +79,7 @@ $(function() {
 						$('.view--question-1').removeClass("is-active");
 						$('.view--question-1').addClass("is-last");
 						$('.view--question-2').addClass("is-active");
-						$('.view__status-dot--1').removeClass("is-active");
-						$('.view__status-dot--2').addClass("is-active");
+						$('.view__question-static-status-bar').css( "width", "50%" );
 					}, slideDelay);
 					break;
 				case "303":
@@ -90,8 +89,7 @@ $(function() {
 						$('.view--question-2').removeClass("is-active");
 						$('.view--question-2').addClass("is-last");
 						$('.view--question-3').addClass("is-active");
-						$('.view__status-dot--2').removeClass("is-active");
-						$('.view__status-dot--3').addClass("is-active");
+						$('.view__question-static-status-bar').css( "width", "75%" );
 					}, slideDelay);
 					break;
 				case "304":
@@ -101,14 +99,12 @@ $(function() {
 						$('.view--question-3').removeClass("is-active");
 						$('.view--question-3').addClass("is-last");
 						$('.view--question-4').addClass("is-active");
-						$('.view__status-dot--3').removeClass("is-active");
-						$('.view__status-dot--4').addClass("is-active");
+						$('.view__question-static-status-bar').css( "width", "100%" );
 					}, slideDelay);
 					break;
 				case "400":
 					setTimeout(function() {
-						$('.view__status-dots').removeClass("is-visible");
-						$('.view__status-dot--4').removeClass("is-active");
+						$('.view__question-static-content').removeClass("is-visible");
 						$('.answer').empty();
 						$('.view--question-3').removeClass("is-last");
 						$('.view--question-4').removeClass("is-active");

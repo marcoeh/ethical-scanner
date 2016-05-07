@@ -84,22 +84,32 @@ h1,h2,h3,h4,h5,p {
 
 	&__wrapper {
 		background: $colorMainDark;
-		// width: 100vw;
-		// height: 100vh;
+		width: 100vw;
+		height: 100vh;
 		margin: 0 auto;
 		@include absolutecenter($axis: "both");
 		overflow: hidden;
 
 		/* Desktop-Style */
-		width: 1024px;
-		height: 768px;
-		border: 1px solid $colorWhite;
+		// width: 1024px;
+		// height: 768px;
+		// border: 1px solid $colorWhite;
 	}
 	&__content {
 		position: relative;
 		height: 100%;
 		width: 100%;
-		padding: 60px 60px;
+		padding: $sizeSpacerMain;
+
+		&-question-wrapper {
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+		&--question {
+			padding: 86px $sizeSpacerMain 275px;
+		}
+
 	}
 	&__title {
 		@include fontTitle;
@@ -124,41 +134,54 @@ h1,h2,h3,h4,h5,p {
 			@include absolutecenter($axis: "x");
 		}
 	}
-	&__status {
-		&-dots {
+
+	&__question-static {
+
+		&-content {
 			position: absolute;
-			bottom: 60px;
-			width: 200px;
-			height: 16px;
-			display: flex;
-			justify-content: space-between;
-			@include absolutecenter($axis: "x");
+			height: 100%;
+			width: 100%;
+			left: 0;
 			visibility: hidden;
 
 			&.is-visible {
 				visibility: visible;
 			}
 		}
-		&-dot {
-			width: 16px;
-			height: 16px;
-			border: 1px solid $colorWhite;
-			border-radius: 100%;
-			background: $colorMainDark;
-			z-index: 100;
 
-			&.is-active {
-				background: $colorWhite;
-			}
+		&-call-to-answer {
+			@include fontInfo;
+			padding-top: $sizeSpacerMain;
+			text-align: center;
 		}
-		&-line {
+
+		&-letter {
 			position: absolute;
-			bottom: 8px;
-			width: 184px;
-			height: 1px;
-			background: $colorWhite;
+			width: 135px;
+			height: 96px;
+			border: 2px solid $colorWhite;
 			@include absolutecenter($axis: "x");
-			z-index: 1;
+			bottom: 180px;
+		}
+
+		&-info {
+			@include fontInfoSmall;
+			position: absolute;
+			bottom: ($sizeSpacerMain * 1.5);
+			left: $sizeSpacerMain;
+		}
+
+		&-status-bar {
+			&-wrapper {
+				position: absolute;
+				bottom: $sizeSpacerMain;
+				left: $sizeSpacerMain;
+				width: 904px;
+			}
+			background: $colorWhite;
+			width: 25%;
+			height: 8px;
+			transition: width 0.6s ease-in-out;
 		}
 	}
 }
@@ -175,7 +198,7 @@ h1,h2,h3,h4,h5,p {
 	}
 	&__dots {
 		position: absolute;
-		bottom: 60px;
+		bottom: $sizeSpacerMain;
 		width: 100%;
 		height: 200px;
 		display: flex;
@@ -240,13 +263,9 @@ h1,h2,h3,h4,h5,p {
 
 .question {
 	@include fontTitle;
-	margin-top: 40px;
+	margin: 0;
 	text-align: center;
-
-	&__answer-call {
-		@include fontInfo;
-		text-align: center;
-	}
+	@include absolutecenter($axis: "y");
 
 	&__rule {
 		height: 1px;
