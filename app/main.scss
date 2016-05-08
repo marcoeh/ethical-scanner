@@ -5,35 +5,22 @@
 @import "../css/layout";
 
 @font-face {
-    font-family: "gt-walsheim";
-    src: url("fonts/gt-walsheim-light.woff") format('woff');
-    font-weight: 300;
+	font-family: "gt-walsheim";
+	src: url("fonts/gt-walsheim-light.woff") format('woff');
+	font-weight: 300;
 }
 
 @font-face {
-    font-family: "gt-walsheim";
-    src: url("fonts/gt-walsheim-regular.woff") format('woff');
-    font-weight: 500;
+	font-family: "gt-walsheim";
+	src: url("fonts/gt-walsheim-regular.woff") format('woff');
+	font-weight: 500;
 }
 
 @font-face {
-    font-family: "gt-walsheim";
-    src: url("fonts/gt-walsheim-bold.woff") format('woff');
-    font-weight: 700;
+	font-family: "gt-walsheim";
+	src: url("fonts/gt-walsheim-bold.woff") format('woff');
+	font-weight: 700;
 }
-
-// @font-face {
-//     font-family: "gt-walsheim";
-//     src: url("fonts/awesome-font-boldoblique.woff") format('woff');
-//     font-weight: bold;
-//     font-style: italic;
-// }
-
-// @font-face {
-//     font-family: "gt-walsheim";
-//     src: url("fonts/awesome-font-oblique.woff") format('woff');
-//     font-style: italic;
-// }
 
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
@@ -56,8 +43,7 @@ html, body {
 	-khtml-user-select: none;    /* Konqueror */
 	-moz-user-select: none;      /* Firefox */
 	-ms-user-select: none;       /* Internet Explorer/Edge */
-	user-select: none;           /* Non-prefixed version, currently
-	                              not supported by any browser */
+	user-select: none;           /* Non-prefixed version, currently not supported by any browser */
 }
 
 h1,h2,h3,h4,h5,p {
@@ -91,9 +77,9 @@ h1,h2,h3,h4,h5,p {
 		overflow: hidden;
 
 		/* Desktop-Style */
-		// width: 1024px;
-		// height: 768px;
-		// border: 1px solid $colorWhite;
+		width: 1024px;
+		height: 768px;
+		border: 1px solid $colorWhite;
 	}
 	&__content {
 		position: relative;
