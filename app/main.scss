@@ -183,18 +183,88 @@ h1,h2,h3,h4,h5,p {
 		transform: scale(0.175);
 		margin-top: 140px;
 	}
+	&__wrapper {
+		position: absolute;
+		width: calc(100% - 120px);
+		height: calc(100% - 120px);
+		overflow: hidden;
+		bottom: $sizeSpacerMain;
+		transition:height 8s steps(30,end);
+		&.is-printing {
+			height: calc(0% - 120px);
+		}
+	}
+	&__content {
+		float: left;
+		height: 100%;
+		&--left {
+			width: 60%;
+			border-right: 1px solid $colorMainDark;
+			padding-right: $sizeSpacerMain / 2;
+		}
+		&--right {
+			width: 40%;
+		}
+	}
+	&__questions {
+		padding-left: 17px;
+	}
 	&__question {
 		@include fontLetter;
 	}
 	&__title {
 		@include fontLetter;
 		font-weight: 700;
+		margin-bottom: $sizeSpacerMain/4;
 	}
 	&__text {
 		@include fontLetter;
+		margin-bottom: $sizeSpacerMain/4;
 	}
 	&__date {
 		@include fontLetter;
+		margin-bottom: $sizeSpacerMain/2;
+	}
+	&__stamp {
+		width: 90px;
+		height: 110px;
+		border: 1px solid $colorMainDark;
+		float: right;
+	}
+	&__address {
+		@include fontLetter;
+		margin-left: 30px;
+		margin-top: 360px;
+		font-style: normal;
+		line-height: 1.5;
+	}
+	&__sender-lines {
+		padding-right: $sizeSpacerMain;
+	}
+	&__sender-line {
+		width: 100%;
+		border-bottom: 1px solid $colorMainDark;
+		margin-top: $sizeSpacerMain / 2;
+	}
+	&__call-to-print {
+		position: absolute;
+		background: $colorMainDark;
+		width: 300px;
+		height: $sizeSpacerMain;
+		bottom: -($sizeSpacerMain);
+		opacity: 0;
+		transition: all 0.6s ease-in-out;
+		padding: 12px;
+		text-align: center;
+		z-index: 100;
+		@include absolutecenter($axis: "x");
+		&-text {
+			@include fontInfo;
+		}
+		&.is-visible {
+			bottom: $sizeSpacerMain;
+			opacity: 1;
+		}
 	}
 }
 

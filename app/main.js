@@ -62,7 +62,11 @@ $(function() {
 					$('.view--welcome').addClass("is-active");
 					$('.view__question-static-status-bar').css( "width", "0%" );
 
+					$('.view--letter').removeClass("is-visible");
+
 					$('.view__question-static-call-to-answer').removeClass("is-visible");
+
+					$('.letter__wrapper').removeClass("is-printing");
 
 					$('.letter__questions').empty();
 					$('.letter').addClass("is-small");
@@ -89,7 +93,7 @@ $(function() {
 					$('.view__question-static-status-bar').css( "width", "25%" );
 					$('.view__question-static-call-to-answer').addClass("is-visible");
 
-					$('.view__letter').addClass("is-visible");
+					$('.view--letter').addClass("is-visible");
 
 					$('.question--1').addClass("is-active");
 					break;
@@ -126,14 +130,18 @@ $(function() {
 					$('.question--4').removeClass("is-active");
 					$('.letter').removeClass("is-small");
 
+					$('.letter__call-to-print').addClass("is-visible");
+
 					$('.view--level-setting').removeClass("is-last");
 					$('.view--question').removeClass("is-active");
 					$('.view--question').addClass("is-last");
 					break;
 				case "500":
-					$('.view__letter').removeClass("is-visible");
 
 					$('.view--question').removeClass("is-last");
+					$('.letter__call-to-print').removeClass("is-visible");
+
+					$('.letter__wrapper').addClass("is-printing");
 					break;
 				default:
 					$('.state').append("Error Yo");
@@ -174,7 +182,7 @@ $(function() {
 				case "301":
 					if (answer == "Yes") {
 						$('.question--1').addClass("is-animating-yes");
-						$('.letter__questions').append('<p class="letter__question letter__question--1"></p>');
+						$('.letter__questions').append('<li class="letter__question letter__question--1"></li>');
 						$('.letter__question--1').typed({
 							strings: [question1],
 							showCursor: false,
@@ -187,7 +195,7 @@ $(function() {
 				case "302":
 					if (answer == "Yes") {
 						$('.question--2').addClass("is-animating-yes");
-						$('.letter__questions').append('<p class="letter__question letter__question--2"></p>');
+						$('.letter__questions').append('<li class="letter__question letter__question--2"></li>');
 						$('.letter__question--2').typed({
 							strings: [question2],
 							showCursor: false,
@@ -200,7 +208,7 @@ $(function() {
 				case "303":
 					if (answer == "Yes") {
 						$('.question--3').addClass("is-animating-yes");
-						$('.letter__questions').append('<p class="letter__question letter__question--3"></p>');
+						$('.letter__questions').append('<li class="letter__question letter__question--3"></li>');
 						$('.letter__question--3').typed({
 							strings: [question3],
 							showCursor: false,
@@ -213,7 +221,7 @@ $(function() {
 				case "304":
 					if (answer == "Yes") {
 						$('.question--4').addClass("is-animating-yes");
-						$('.letter__questions').append('<p class="letter__question letter__question--4"></p>');
+						$('.letter__questions').append('<li class="letter__question letter__question--4"></li>');
 						$('.letter__question--4').typed({
 							strings: [question4],
 							showCursor: false,
