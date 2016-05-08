@@ -195,6 +195,7 @@ void serialEvent (Serial scannerSerialPort) {
 
 		// Apologize else
 		else {
+			client.publish("/state", "sorry");
 			println("Yes or No buttons not matching condition!");
 		}
 
