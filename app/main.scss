@@ -74,9 +74,9 @@ h1,h2,h3,h4,h5,p {
 		overflow: hidden;
 
 		/* Desktop-Style */
-		width: 1024px;
-		height: 768px;
-		border: 1px solid $colorWhite;
+		// width: 1024px;
+		// height: 768px;
+		// border: 1px solid $colorWhite;
 	}
 	&__content {
 		position: relative;
@@ -386,8 +386,6 @@ h1,h2,h3,h4,h5,p {
 	}
 	&.is-active {
 		visibility: visible;
-	}
-	&.is-animating-in {
 		animation-duration: 0.4s;
 		animation-fill-mode: both;
 		animation-name: zoomIn;

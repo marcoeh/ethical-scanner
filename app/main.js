@@ -108,7 +108,6 @@ $(function() {
 
 					setTimeout(function() {
 						$('.question--1').addClass("is-active");
-						$('.question').addClass("is-animating-in");
 					}, 1000);
 
 					break;
@@ -150,6 +149,7 @@ $(function() {
 					break;
 				case "400":
 					setTimeout(function() {
+
 						$('.view__question-static-content').removeClass("is-visible");
 						$('.question--4').removeClass("is-active");
 						$('.letter').removeClass("is-small");
@@ -160,10 +160,14 @@ $(function() {
 					}, slideDelay);
 					break;
 				case "500":
-					$('.view--letter').removeClass("is-visible");
 					$('.letter__call-to-print').removeClass("is-visible");
 
 					$('.letter__wrapper').addClass("is-printing");
+
+					setTimeout(function() {
+						$('.view--letter').removeClass("is-visible");
+					}, 2000);
+
 					break;
 				case "sorry":
 					$('.view').addClass("is-shaking");
