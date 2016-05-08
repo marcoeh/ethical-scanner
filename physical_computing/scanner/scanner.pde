@@ -28,7 +28,7 @@ int state = 100;
 
 int prevEthicLevel = 1;
 int ethicLevel = 1;
-int inputLength = 8;
+int inputLength = 13;
 int prevQuestion = 99;
 int question = 0;
 String results = "";

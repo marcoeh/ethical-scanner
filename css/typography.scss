@@ -38,3 +38,11 @@
 	letter-spacing: -0.11px;
 	line-height: 1.05;
 }
+
+@mixin fontLetter() {
+	font-weight: 300;
+	font-size: 20px;
+	color: $colorMainDark;
+	letter-spacing: -0.11px;
+	line-height: 1.1;
+}

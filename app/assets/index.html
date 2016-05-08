@@ -65,6 +65,17 @@
 				<div class="view__question-static-status-bar"></div>
 			</div>
 		</div>
+		<div class="view view--letter">
+			<div class="letter">
+				<div class="letter__content">
+					<p class="letter__date">Zürich, <span class="letter__date-today"></span></p>
+					<p class="letter__title">Frage betreffend M-Budget Rindsvoressen</p>
+					<p class="letter__text">Sehr geehrte Damen und Herren<br><br>Vor einigen Tagen habe ich ihr M-Budget Rindsvoressen (Art.-Nr. 220222085000) gekauft. Dazu konnte ich folgende Fragen nicht beantworten:</p>
+					<div class="letter__questions"></div>
+					<p class="letter__text">Besten Dank für Ihre Rückmeldung.<br><br>Mit freundlichen Grüssen,</p>
+				</div>
+			</div>
+		</div>
 		<div class="view view--question">
 			<div class="view__content view__content--question">
 				<div class="view__content-question-wrapper">
@@ -75,26 +86,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="view view--results">
-			<div class="view__content view__content--results">
-				<p class="results__title">Offene Fragen:</p>
-				<p class="results"></p>
-				<p class="results__call-to-print">Brief ausdrucken?</p>
-			</div>
-		</div>
-		<div class="view view--done">
-			<div class="view__content view__content--done">
-				<p class="done--title">Done.</p>
-				<p class="done">Fragen werden ausgedruckt. Neu starten?</p>
-			</div>
-		</div>
 	</div>
 
 	<audio id="sound-yep" src="sounds/yep.mp3" type="audio/mp3"></audio>
 	<audio id="sound-nope" src="sounds/nope.mp3" type="audio/mp3"></audio>
 
-	<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-	<script src="https://assets.shiftr.io/js/mqtt-latest.js"></script>
+	<script src="/jquery-2.2.3.min.js"></script>
+	<script src="/mqtt.min.js"></script>
+	<script src="/typed.min.js"></script>
+	<script src="/moment-with-locales.min.js"></script>
 	<script src="/main.js"></script>
 	<script>
 		require('initialize');
