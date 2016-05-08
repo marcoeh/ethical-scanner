@@ -73,7 +73,7 @@ $(function() {
 					$('.letter__wrapper').removeClass("is-printing");
 					$('.letter__questions').empty();
 					$('.letter').addClass("is-small");
-					$('.question').empty();
+					$('.question__content').empty();
 					$('.question').removeClass("is-animating-yes");
 					$('.question').removeClass("is-animating-no");
 
@@ -183,28 +183,28 @@ $(function() {
 				case "301":
 					if (!question1IsSet) {
 						question1 = message.toString();
-						$('.question--1').append(question1);
+						$('.question__content--1').append(question1);
 						question1IsSet = true;
 					}
 					break;
 				case "302":
 					if (!question2IsSet) {
 						question2 = message.toString();
-						$('.question--2').append(question2);
+						$('.question__content--2').append(question2);
 							question2IsSet = true;
 					}
 					break;
 				case "303":
 					if (!question3IsSet) {
 						question3 = message.toString();
-						$('.question--3').append(question3);
+						$('.question__content--3').append(question3);
 						question3IsSet = true;
 					}
 					break;
 				case "304":
 					if (!question4IsSet) {
 						question4 = message.toString();
-						$('.question--4').append(question4);
+						$('.question__content--4').append(question4);
 						question4IsSet = true;
 					}
 					break;
