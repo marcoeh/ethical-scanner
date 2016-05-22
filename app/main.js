@@ -38,24 +38,42 @@ $(function() {
 
 			switch (ethicLevel) {
 				case "1":
-					$('.ethic-level-setting__dot-wrapper').removeClass("is-selected");
-					$('.ethic-level-setting__dot-wrapper--1').addClass("is-selected");
+					$('.ethic-level-setting__dot').css( "left", "0%" );
 					break;
 				case "2":
-					$('.ethic-level-setting__dot-wrapper').removeClass("is-selected");
-					$('.ethic-level-setting__dot-wrapper--2').addClass("is-selected");
+					$('.ethic-level-setting__dot').css( "left", "33.3%" );
 					break;
 				case "3":
-					$('.ethic-level-setting__dot-wrapper').removeClass("is-selected");
-					$('.ethic-level-setting__dot-wrapper--3').addClass("is-selected");
+					$('.ethic-level-setting__dot').css( "left", "66.6%" );
 					break;
 				case "4":
-					$('.ethic-level-setting__dot-wrapper').removeClass("is-selected");
-					$('.ethic-level-setting__dot-wrapper--4').addClass("is-selected");
+					$('.ethic-level-setting__dot').css( "left", "100%" );
 					break;
 				default:
 					console.log("ethicLevel Error");
 			}
+
+
+			// switch (ethicLevel) {
+			// 	case "1":
+			// 		$('.ethic-level-setting__dot-wrapper').removeClass("is-selected");
+			// 		$('.ethic-level-setting__dot-wrapper--1').addClass("is-selected");
+			// 		break;
+			// 	case "2":
+			// 		$('.ethic-level-setting__dot-wrapper').removeClass("is-selected");
+			// 		$('.ethic-level-setting__dot-wrapper--2').addClass("is-selected");
+			// 		break;
+			// 	case "3":
+			// 		$('.ethic-level-setting__dot-wrapper').removeClass("is-selected");
+			// 		$('.ethic-level-setting__dot-wrapper--3').addClass("is-selected");
+			// 		break;
+			// 	case "4":
+			// 		$('.ethic-level-setting__dot-wrapper').removeClass("is-selected");
+			// 		$('.ethic-level-setting__dot-wrapper--4').addClass("is-selected");
+			// 		break;
+			// 	default:
+			// 		console.log("ethicLevel Error");
+			// }
 		} else if (topic == "/state") {
 			$('.state').empty();
 

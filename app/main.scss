@@ -306,42 +306,36 @@ h1,h2,h3,h4,h5,p {
 
 	}
 	&__dot {
-		width: 84px;
-		height: 84px;
+		width: 60px;
+		height: 60px;
 		border-radius: 100%;
-		border: 1px solid $colorWhite;
-		margin-bottom: 20px;
-		background: $colorMainDark;
+		background: $colorWhite;
+		transition: all 0.3s ease-in-out;
+		position: absolute;
 		&-wrapper {
 			z-index: 100;
-			&.is-selected {
-				.ethic-level-setting {
-					&__dot {
-						background: $colorWhite;
-
-						&-number {
-							color: $colorMainDark;
-						}
-					}
-				}
-			}
-		}
-		&-number {
-			@include fontBig;
-			text-align: center;
-			padding: 20px 0;
+			width: 90%;
+			margin-left: 5%;
+			position: relative;
 		}
 		&-line {
 			border-bottom: 1px solid $colorWhite;
 			position: absolute;
-			top: 41px;
-			left: 0px;
+			top: 30px;
+			left: 5%;
 			width: 90%;
 			z-index: 1;
 		}
 		&-info {
 			@include fontInfo;
-			text-align: center;
+			position: absolute;
+			top: -146px;
+			&--left {
+				left: 0;
+			}
+			&--right {
+				right: 0;
+			}
 		}
 	}
 }
