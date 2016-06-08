@@ -27,6 +27,8 @@ $(function() {
 		client.subscribe('/results');
 		client.subscribe('/sounds');
 		client.subscribe('/answer');
+		client.subscribe('/product');
+		client.subscribe('/address');
 	});
 
 	client.on('message', function(topic, message) {
@@ -86,6 +88,8 @@ $(function() {
 					question2IsSet = false;
 					question3IsSet = false;
 					question4IsSet = false;
+
+					$('.letter__address').empty();
 
 					$('.view__question-static-status-bar').css( "width", "0%" );
 					$('.letter__wrapper').removeClass("is-printing");
@@ -236,6 +240,14 @@ $(function() {
 			var sound = message.toString();
 			//yepSound.play();
 			$('#sound-'+sound).get(0).play();
+		} else if (topic == "/product") {
+			var product = message.toString();
+			$('.product__name').empty();
+			$('.product__name').append(message.toString());
+		} else if (topic == "/address") {
+			var address = message.toString();
+			$('.letter__address').append(message.toString());
+			$('.letter__address').append('<br>');
 		} else if (topic == "/answer") {
 
 			var answer = message.toString(),

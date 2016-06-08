@@ -1,3 +1,6 @@
+int sizeWidth = 2100;
+int sizeHeight = 1480;
+
 import mqtt.*;
 MQTTClient client;
 
@@ -6,13 +9,45 @@ Serial scannerSerialPort;  // Create object from Serial class
 String scannerSerialVal;   // Data received from the serial port
 String scannerSerialVal2;  // Data received from the serial port
 
+import processing.pdf.*;
+boolean printRecord = false;
+
 String input = "";
 
-// Our Products A, B and C
-String[] products = {"9578180660594", "9763671227480", "9527804670266"};
+// Our productBarCodes A, B and C
+String[] productBarCodes = {"9578180660594", "9763671227480", "9527804670266"};
+String[] productNames = {"Produkt A", "Produkt B", "Produkt C", "Nope"};
+int product = 0;
 
 // Our Letter Text
-String letterText = "";
+String letterTextIntroPre = "Frage betreffend";
+String letterTextAnrede = "Sehr geehrte Damen und Herren";
+String letterTextMainPre = "Neulich habe ich ihr ";
+String letterTextMainPost = " gekauft. Dazu konnte ich folgende Fragen nicht beantworten:";
+String letterTextDanke = "Besten Dank für Ihre Rückmeldung.";
+String letterTextGruss = "Mit freundlichen Grüssen,";
+
+//Addresses
+String[][] addresses = {
+	{"Adresse A 1",
+	 "Adresse A 2",
+	 "Adresse A 3",
+	 "Adresse A 4"},
+	{"Adresse B 1",
+	 "Adresse B 2",
+	 "Adresse B 3",
+	 "Adresse B 4"},
+	{"Adresse C 1",
+	 "Adresse C 2",
+	 "Adresse C 3",
+	 "Adresse C 4"},
+	{"",
+	 "",
+	 "",
+	 ""}
+ };
+
+PFont walsheimRegular;
 
 int buttonCancel = 1;
 int buttonYes = 2;
@@ -23,13 +58,13 @@ int prevState = 99;
 int state = 100;
 
 /* states:	 100: start
-	         200: scanned
-	         301: question 1
-	         302: question 2
-	         303: question 3
-	         304: question 4
-	         400: results
-	         500: done
+			 200: scanned
+			 301: question 1
+			 302: question 2
+			 303: question 3
+			 304: question 4
+			 400: results
+			 500: done
 */
 
 int prevEthicLevel = 1;
@@ -39,96 +74,119 @@ int prevQuestion = 99;
 int question = 0;
 String results = "";
 
+
 // M-Budget-Produkt
 String[][] questionsProductA = {
 	// Ethic Level 1
-	{"Soll ich das Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
-	 "Stammt das Fleisch von einem einzelnen Tier? Falls nicht, von wie vielen stammt es?",
-	 "Von welcher Stelle des Tierkörpers wurde das Fleischstück herausgeschnitten?",
-	 "Kann ich bedenkenlos Fleisch kaufen, wenn es Schweizer Fleisch ist?"},
+	{"Soll ich billiges Fleisch  wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
+	 "Kann ich billiges Fleisch ohne Probleme entsorgen, wenn es mir nicht schmeckt?",
+	 "Darf ich billigeres Fleisch eher wegwerfen als teures Fleisch?",
+	 "Finden es die Rinder toll zusammen mit vielen Freunden zu Fleisch verarbeitet zu werden?"},
 	// Ethic Level 2
-	{"Wird Biofleisch auf die gleiche Art geschlachtet wie nicht-bio Fleisch?",
-	 "Wurde das Tier mit Nahrung gefüttert, das auch in der Schweiz produziert wurde?",
-	 "Wurden den Tieren Antibiotika verabreicht und hat dies schlussendlich gesundheitliche Konsequenzen für mich?",
-	 "Hat der Bauernhof, auf dem das Tier aufgewachsen ist wirklich so schön ausgesehen? Könnte man diesen einmal besuchen?"},
+	{"Stammt das Fleisch von einem einzelnen Tier? Von wie vielen stammt es?",
+     "Hatte das Tier einen schlimmeren Tod, weil sein Fleisch weniger kostet?",
+     "Was bedeutet besonders artgerechte Tierhaltung? Gilt das auch für die Zeit im Zentralschlachthof?",
+     "Erkennt man es an der Fleischqualität, wenn das Tier Angst hatte?"},
 	// Ethic Level 3
-	{"Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
-	 "Gibt es Teile des Tieres, die nicht verwendet wurden? Wenn ja, können Sie mir sagen welche?",
-	 "Sollte jeder wöchentlich einen fleischfreien Tag einlegen, so dass jährlich 157 Millionen Tiere vor der Schlachtbank verschont werden?",
-	 "Entstehen bei der Tieraufzucht und Fleischverarbeitung nicht deutlich mehr Treibhausgase als bei der Herstellung anderer Gerichte?"},
+	{"Ist es in menschlich, dass die Tiere im grossen Schlachthof im Akkord geschlachtet werden?",
+	 "Wie glücklich war das Tier zum Zeitpunkt, wo es im Zentralschlachthof geschlachtet wurde?",
+	 "Kann die industrielle Fleischproduktion Tierfreundlich sein?",
+	 "Entstehen bei der Tieraufzucht und Fleischverarbeitung durch grosse Schlachthäuser mehr Treibhausgase?"},
 	// Ethic Level 4
-	{"Ist es ethisch, ein Tier zu töten, nur weil es Spass macht Fleisch zu essen?",
-	 "Ist es ethisch, dass der durchschnittliche Europäer jährlich 4 Kühe oder Kälber, 4 Schafe, 12 Gänse, 37 Enten, 46 Truthähne, 46 Schweine und 945 Hühner isst?",
-	 "Gehört es zum guten Leben eines Schweines, einmal gegessen zu werden?",
-	 "Wollte das Tier von diesem Siedfleisch einmal gegessen werden?"}
+	{"Macht es Sinn, immer nur Edelstücke zu essen und dafür viel mehr Tiere zu schlachten?",
+	 "Gehört es zum guten Leben eines Rindes, einmal verspiesen zu werden?",
+	 "Ist es ethisch, ein Tier zu töten, nur weil es Spass macht Fleisch zu essen?",
+	 "Wollte das Tier in diesem Hamburger einmal im Zentralschlachthof geschlachtet werden?"}
  };
 
 // Schlachthäuschen-Produkt
 String[][] questionsProductB = {
 	// Ethic Level 1
-	{"Soll ich das Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
+	{"Soll ich gutes Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
 	 "Stammt das Fleisch von einem einzelnen Tier? Falls nicht, von wie vielen stammt es?",
-	 "Von welcher Stelle des Tierkörpers wurde das Fleischstück herausgeschnitten?",
-	 "Kann ich bedenkenlos Fleisch kaufen, wenn es Schweizer Fleisch ist?"},
+	 "Darf ich so viel Fleisch essen, wie ich will, wenn ich es mir leisten kann?",
+	 "Kann ich bedenkenlos Fleisch kaufen, wenn es aus einer kleinen Produktion stammt?"},
+
 	// Ethic Level 2
-	{"Wird Biofleisch auf die gleiche Art geschlachtet wie nicht-bio Fleisch?",
-	 "Wurde das Tier mit Nahrung gefüttert, das auch in der Schweiz produziert wurde?",
-	 "Wurden den Tieren Antibiotika verabreicht und hat dies schlussendlich gesundheitliche Konsequenzen für mich?",
-	 "Hat der Bauernhof, auf dem das Tier aufgewachsen ist wirklich so schön ausgesehen? Könnte man diesen einmal besuchen?"},
-	// Ethic Level 3
-	{"Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
-	 "Gibt es Teile des Tieres, die nicht verwendet wurden? Wenn ja, können Sie mir sagen welche?",
-	 "Sollte jeder wöchentlich einen fleischfreien Tag einlegen, so dass jährlich 157 Millionen Tiere vor der Schlachtbank verschont werden?",
-	 "Entstehen bei der Tieraufzucht und Fleischverarbeitung nicht deutlich mehr Treibhausgase als bei der Herstellung anderer Gerichte?"},
+	{"Erkennt man es an der Fleischqualität, wenn das Tier verunsichert war?",
+	 "Kann ich bedenkenlos Fleisch kaufen, wenn es Biofleisch ist?",
+	 "Wie viele Tiere werden an einem Tag im Schlachthäuschen geschlachtet?",
+	 "Was bedeutet besonders artgerechte Tierhaltung, gilt das auch für die Fahrt zum Schlachthäuschen?"},
+
+   // Ethic Level 3
+	{"Gibt es Teile des Tieres, die nicht verwendet wurden? Welche sind das?",
+	 "Gibt es essbare Teile des Tieres, die nach der Schlachtung im kleinen Schlachthäuschen weggeworfen wurden?",
+	 "Ist es in Ordnung, dass die Tiere durch die Fahrt zum Schlachthäuschen einen grossen Stress haben?",
+	 "Hat das Tier einen weniger grossen Stress vor dem Tod als in einem Zentralschlachthof?"},
 	// Ethic Level 4
 	{"Ist es ethisch, ein Tier zu töten, nur weil es Spass macht Fleisch zu essen?",
-	 "Ist es ethisch, dass der durchschnittliche Europäer jährlich 4 Kühe oder Kälber, 4 Schafe, 12 Gänse, 37 Enten, 46 Truthähne, 46 Schweine und 945 Hühner isst?",
-	 "Gehört es zum guten Leben eines Schweines, einmal gegessen zu werden?",
-	 "Wollte das Tier von diesem Siedfleisch einmal gegessen werden?"}
+	 "Gehört es zum guten Leben eines Rindes, einmal im Schlachthäuschen zu sterben?",
+	 "Sollte man den Tieren bei einer Schlachtung die Chance geben, sich zu verteidigen?",
+	 "Macht es Sinn, immer nur Edelstücke zu essen und dafür viel mehr Tiere zu schlachten?"}
  };
 
 // Weideschlachtung-Produkt
 String[][] questionsProductC = {
 	// Ethic Level 1
 	{"Soll ich das Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
-	 "Stammt das Fleisch von einem einzelnen Tier? Falls nicht, von wie vielen stammt es?",
-	 "Von welcher Stelle des Tierkörpers wurde das Fleischstück herausgeschnitten?",
-	 "Kann ich bedenkenlos Fleisch kaufen, wenn es Schweizer Fleisch ist?"},
+	 "Darf ich stressfrei geschlachtetes Fleisch ungestresst entsorgen, wenn es jemand angefasst hat?",
+	 "Darf ich entspannt getötete Tiere unbewusst essen, weil ich das Geld dazu habe?",
+	 "Kann ich bedenkenlos Fleisch kaufen, wenn es stressfrei geschlachtet wurde?"},
 	// Ethic Level 2
-	{"Wird Biofleisch auf die gleiche Art geschlachtet wie nicht-bio Fleisch?",
-	 "Wurde das Tier mit Nahrung gefüttert, das auch in der Schweiz produziert wurde?",
-	 "Wurden den Tieren Antibiotika verabreicht und hat dies schlussendlich gesundheitliche Konsequenzen für mich?",
-	 "Hat der Bauernhof, auf dem das Tier aufgewachsen ist wirklich so schön ausgesehen? Könnte man diesen einmal besuchen?"},
+	{"Darf ich exzessiv Fleisch konsumieren, wenn es einen stressfreien Tod hatte?",
+	 "Erkennt man es an der Fleischqualität, ob das Tier entspannt war?",
+	 "Wie viele Tiere werden an einem Tag bei einer Weideschlachtung geschlachtet?",
+	 "Kann ich bedenkenlos Fleisch kaufen, wenn es Weiderind ist?"},
 	// Ethic Level 3
-	{"Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
-	 "Gibt es Teile des Tieres, die nicht verwendet wurden? Wenn ja, können Sie mir sagen welche?",
-	 "Sollte jeder wöchentlich einen fleischfreien Tag einlegen, so dass jährlich 157 Millionen Tiere vor der Schlachtbank verschont werden?",
-	 "Entstehen bei der Tieraufzucht und Fleischverarbeitung nicht deutlich mehr Treibhausgase als bei der Herstellung anderer Gerichte?"},
+	{"Ist es sinnvoll sehr viel Fleisch zu essen, wenn das Tier einen stressfreien Tod hatte?",
+	 "Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde?",
+	 "Entstehen bei der Tieraufzucht und Fleischverarbeitung von Weiderind Treibhausgase?",
+	 "Gibt es essbare Teile des Tieres, die nach der Schlachtung weggeworfen wurden?"},
 	// Ethic Level 4
 	{"Ist es ethisch, ein Tier zu töten, nur weil es Spass macht Fleisch zu essen?",
-	 "Ist es ethisch, dass der durchschnittliche Europäer jährlich 4 Kühe oder Kälber, 4 Schafe, 12 Gänse, 37 Enten, 46 Truthähne, 46 Schweine und 945 Hühner isst?",
-	 "Gehört es zum guten Leben eines Schweines, einmal gegessen zu werden?",
-	 "Wollte das Tier von diesem Siedfleisch einmal gegessen werden?"}
+	 "Gehört es zum guten Leben eines Rindes, einmal stressfrei geschlachtet zu werden?",
+	 "Würde sich das Rind freuen, einen stressfreien Tod haben zu können und gegessen zu werden?",
+	 "Wollte das Tier in diesem Hamburger einmal stressfrei geschlachtet werden?"}
  };
 
 // questions to be deleted later
 String[][] questions = {
-	{"1-1: Soll ich das Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
-	 "1-2: Stammt das Fleisch von einem einzelnen Tier? Falls nicht, von wie vielen stammt es?",
-	 "1-3: Von welcher Stelle des Tierkörpers wurde das Fleischstück herausgeschnitten?",
-	 "1-4: Kann ich bedenkenlos Fleisch kaufen, wenn es Schweizer Fleisch ist?"},
-	{"2-1: Wird Biofleisch auf die gleiche Art geschlachtet wie nicht-bio Fleisch?",
-	 "2-2: Wurde das Tier mit Nahrung gefüttert, das auch in der Schweiz produziert wurde?",
-	 "2-3: Wurden den Tieren Antibiotika verabreicht und hat dies schlussendlich gesundheitliche Konsequenzen für mich?",
-	 "2-4: Hat der Bauernhof, auf dem das Tier aufgewachsen ist wirklich so schön ausgesehen? Könnte man diesen einmal besuchen?"},
-	{"3-1: Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
-	 "3-2: Gibt es Teile des Tieres, die nicht verwendet wurden? Wenn ja, können Sie mir sagen welche?",
-	 "3-3: Sollte jeder wöchentlich einen fleischfreien Tag einlegen, so dass jährlich 157 Millionen Tiere vor der Schlachtbank verschont werden?",
-	 "3-4: Entstehen bei der Tieraufzucht und Fleischverarbeitung nicht deutlich mehr Treibhausgase als bei der Herstellung anderer Gerichte?"},
-	{"4-1: Ist es ethisch, ein Tier zu töten, nur weil es Spass macht Fleisch zu essen?",
-	 "4-2: Ist es ethisch, dass der durchschnittliche Europäer jährlich 4 Kühe oder Kälber, 4 Schafe, 12 Gänse, 37 Enten, 46 Truthähne, 46 Schweine und 945 Hühner isst?",
-	 "4-3: Gehört es zum guten Leben eines Schweines, einmal gegessen zu werden?",
-	 "4-4: Wollte das Tier von diesem Siedfleisch einmal gegessen werden?"}
+	{"1-1",
+	 "1-2",
+	 "1-3",
+	 "1-4"},
+	{"2-1",
+	 "2-2",
+	 "2-3",
+	 "2-4"},
+	{"3-1",
+	 "3-2",
+	 "3-3",
+	 "3-4"},
+	{"4-1",
+	 "4-2",
+	 "4-3",
+	 "4-4"}
+ };
+
+// questions to be deleted later
+String[][] questionsDefault = {
+	{"1-1",
+	 "1-2",
+	 "1-3",
+	 "1-4"},
+	{"2-1",
+	 "2-2",
+	 "2-3",
+	 "2-4"},
+	{"3-1",
+	 "3-2",
+	 "3-3",
+	 "3-4"},
+	{"4-1",
+	 "4-2",
+	 "4-3",
+	 "4-4"}
  };
 
 
@@ -138,9 +196,11 @@ void setup() {
 	// client.subscribe("/ethical-scanner");
 	// client.unsubscribe("/ethical-scanner");
 
-	client.publish("/ethic-level", str(ethicLevel));
-	client.publish("/state", str(state));
-	client.publish("/results", results);
+	// client.publish("/ethic-level", str(ethicLevel));
+	// client.publish("/state", str(state));
+	// client.publish("/results", results);
+	// client.publish("/product", productNames[product]);
+	// client.publish("/address", str(address));
 
 	// I know that the first port in the serial list on my mac
 	// is Serial.list()[0].
@@ -149,27 +209,32 @@ void setup() {
 	String scannerSerialPortName = Serial.list()[1]; //change the 0 to a 1 or 2 etc. to match your port
 	scannerSerialPort = new Serial(this, scannerSerialPortName, 9600);
 
-	size(200, 600);
+	size(2100, 1480);
+	background(255);
 	println("setup: state: "+state);
 	println("setup: input: "+input);
 	println("You got that input length right?");
+
+	walsheimRegular = createFont("GTWalsheimProRegular", 38);
+	textFont(walsheimRegular);
 }
 
 void draw() {
+
 	if (prevEthicLevel != ethicLevel) {
 		client.publish("/ethic-level", str(ethicLevel));
 		prevEthicLevel = ethicLevel;
 
-		if (state > 200 && state < 400) {
-			client.publish("/questions", questions[(ethicLevel-1)][question]);
-		}
+		// if (state > 200 && state < 400) {
+		// 	client.publish("/questions", questions[(ethicLevel-1)][question]);
+		// }
 	}
 
 	if (prevState != state) {
 		client.publish("/state", str(state));
 		prevState = state;
 		input = "";
-		println("state: state: "+state);
+		println("state: "+state);
 	}
 
 	if (state < 300) {
@@ -177,16 +242,41 @@ void draw() {
 	}
 
 	if (input.length() == inputLength && state == 100) {
+		if (input.equals(productBarCodes[0])) {
+			product = 0;
+			questions = questionsProductA;
+		} else if (input.equals(productBarCodes[1])) {
+			product = 1;
+			questions = questionsProductB;
+		} else if (input.equals(productBarCodes[2])) {
+			questions = questionsProductC;
+			product = 2;
+		} else {
+			questions = questionsDefault;
+			product = 3;
+		}
 		println("input: "+input);
 		input = "";
 		results = "";
+		printRecord = false;
+		client.publish("/product", productNames[product]);
 		client.publish("/sounds", "yep");
+
+		for (int i = 0; i < addresses[product].length; ++i) {
+			client.publish("/address", addresses[product][i]);
+		}
+
 		state = 200;
 	}
 
 	if (state > 200 && state < 400 && prevQuestion != question) {
 		client.publish("/questions", questions[(ethicLevel-1)][question]);
 		prevQuestion = question;
+	}
+
+	if (printRecord) {
+		drawDefault();
+		printRecord = false;
 	}
 }
 
@@ -236,6 +326,8 @@ void serialEvent (Serial scannerSerialPort) {
 
 		// Jump to next state if button is pressed on results view
 		else if (state == 400 && inByte == buttonYes) {
+			println("Zeit zum Drucken!");
+			printRecord = true;
 			state = 500;
 		}
 
@@ -279,4 +371,49 @@ void keyPressed () {
 
 void messageReceived(String topic, byte[] payload) {
 	println("new message: " + topic + " - " + new String(payload));
+}
+
+void drawDefault() {
+	println("drawing");
+	println("printRecord: "+printRecord);
+
+	background(255);
+	noFill();
+	stroke(0);
+
+	// Draw Absender
+	line(60, (sizeHeight-10), 1220, (sizeHeight-10));
+	line(60, (sizeHeight-110), 1220, (sizeHeight-110));
+	line(60, (sizeHeight-210), 1220, (sizeHeight-210));
+	line(1300, 60, 1300, (sizeHeight-10));
+
+	rect((sizeWidth-210), 10, 200, 300);
+
+	// textSize(16);
+	// textMode(SHAPE);
+	fill(0);
+
+
+	String letterTextIntro = letterTextIntroPre;
+	letterTextIntro += productNames[product];
+
+	String letterTextMain = letterTextMainPre;
+	letterTextMain += productNames[product];
+	letterTextMain += letterTextMainPost;
+
+	text(letterTextIntro, 60, 40);
+	text(letterTextAnrede, 60, 100);
+	text(letterTextMain, 60, 140);
+	text(letterTextDanke, 60, 400);
+	text(letterTextGruss, 60, 440);
+
+	int addressPosition = 800;
+
+	// println("addresses[product][0]: "+addresses[product][0]);
+	for (int i = 0; i < addresses[product].length; ++i) {
+		text(addresses[product][i], 1600, addressPosition);
+		addressPosition += 40;
+	}
+
+	save("./print-folder/export.png");
 }
