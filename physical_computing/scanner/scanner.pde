@@ -16,31 +16,32 @@ String input = "";
 
 // Our productBarCodes A, B and C
 String[] productBarCodes = {"9578180660594", "9763671227480", "9527804670266"};
-String[] productNames = {"Produkt A", "Produkt B", "Produkt C", "Nope"};
+String[] productNames = {"Hamburger M-Budget (Zentralschlachthof)", "Hamburger vom Schlachthäuschen", "Hamburger vom Weideschlachtrind", "Nope"};
 int product = 0;
 
 // Our Letter Text
-String letterTextIntroPre = "Frage betreffend";
+String letterTextIntroPre = "Frage betreffend ";
 String letterTextAnrede = "Sehr geehrte Damen und Herren";
 String letterTextMainPre = "Neulich habe ich ihr ";
-String letterTextMainPost = " gekauft. Dazu konnte ich folgende Fragen nicht beantworten:";
+String letterTextMainPost = " gekauft.";
 String letterTextDanke = "Besten Dank für Ihre Rückmeldung.";
 String letterTextGruss = "Mit freundlichen Grüssen,";
 
+String[] letterQuestions = {};
+
+
 //Addresses
 String[][] addresses = {
-	{"Adresse A 1",
-	 "Adresse A 2",
-	 "Adresse A 3",
-	 "Adresse A 4"},
-	{"Adresse B 1",
-	 "Adresse B 2",
-	 "Adresse B 3",
-	 "Adresse B 4"},
-	{"Adresse C 1",
-	 "Adresse C 2",
-	 "Adresse C 3",
-	 "Adresse C 4"},
+	{"Migros-Genossenschafts-Bund",
+	 "M-Infoline",
+	 "Limmatstrasse 152",
+	 "8031 Zürich"},
+	{"Metzgerei Zraggen",
+	 "Stüssihofstatt 10",
+	 "8001 Zürich"},
+	{"Bauernhof Zur chalte Hose",
+	 "Hohrütistrasse 12",
+	 "8127 Forch"},
 	{"",
 	 "",
 	 "",
@@ -48,6 +49,7 @@ String[][] addresses = {
  };
 
 PFont walsheimRegular;
+PFont walsheimBold;
 
 int buttonCancel = 1;
 int buttonYes = 2;
@@ -216,12 +218,13 @@ void setup() {
 	println("You got that input length right?");
 
 	walsheimRegular = createFont("GTWalsheimProRegular", 38);
+	walsheimBold = createFont("GTWalsheimProBold", 38);
 	textFont(walsheimRegular);
 }
 
 void draw() {
 
-	if (prevEthicLevel != ethicLevel) {
+	if (prevEthicLevel != ethicLevel && state < 300) {
 		client.publish("/ethic-level", str(ethicLevel));
 		prevEthicLevel = ethicLevel;
 
@@ -293,6 +296,7 @@ void serialEvent (Serial scannerSerialPort) {
 			if (inByte == buttonYes) {
 				client.publish("/answer", "Yes");
 				results += "Frage: " + questions[(ethicLevel-1)][question] + "<br> Ethik-Level " + ethicLevel + "– Yes<br><br>";
+				letterQuestions = append(letterQuestions, questions[(ethicLevel-1)][question]);
 				println("Button pressed and result saved: Yes");
 
 			// Publish a No as anwser and save it to the results string
@@ -393,7 +397,6 @@ void drawDefault() {
 	// textMode(SHAPE);
 	fill(0);
 
-
 	String letterTextIntro = letterTextIntroPre;
 	letterTextIntro += productNames[product];
 
@@ -401,19 +404,39 @@ void drawDefault() {
 	letterTextMain += productNames[product];
 	letterTextMain += letterTextMainPost;
 
-	text(letterTextIntro, 60, 40);
-	text(letterTextAnrede, 60, 100);
-	text(letterTextMain, 60, 140);
-	text(letterTextDanke, 60, 400);
-	text(letterTextGruss, 60, 440);
+	textFont(walsheimBold);
 
-	int addressPosition = 800;
+	text(letterTextIntro, 60, 40, 1200, 200);
+
+	textFont(walsheimRegular);
+
+	text(letterTextAnrede, 60, 200, 1200, 200);
+
+	letterTextMain += " Dazu konnte ich folgende Fragen nicht beantworten:";
+	text(letterTextMain, 60, 300, 1200, 200);
+
+	String questionsAll = "";
+
+	for (int i = 0; i < letterQuestions.length; ++i) {
+		questionsAll += letterQuestions[i];
+		questionsAll += "\n";
+	}
+
+	letterQuestions = new String[0];
+
+	text(questionsAll, 60, 480, 1200, 1000);
+
+
+	text(letterTextDanke, 60, 1060, 1200, 200);
+	text(letterTextGruss, 60, 1120, 1200, 200);
+
+	int addressPosition = 900;
 
 	// println("addresses[product][0]: "+addresses[product][0]);
 	for (int i = 0; i < addresses[product].length; ++i) {
-		text(addresses[product][i], 1600, addressPosition);
+		text(addresses[product][i], 1440, addressPosition, 800, 200);
 		addressPosition += 40;
 	}
 
-	save("./print-folder/export.png");
+	save("./print-hotfolder/export.png");
 }

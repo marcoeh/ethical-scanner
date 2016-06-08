@@ -15,7 +15,9 @@ $(function() {
 		question1IsSet = false,
 		question2IsSet = false,
 		question3IsSet = false,
-		question4IsSet = false;
+		question4IsSet = false,
+		ethicLow = ["Suisse Garantie", "Schlachtfabrik", "Dönerbude", "Burger King", "Carna Grischa", "Zentralschlachthof Hinwil", "Discounter"],
+		ethicHigh = ["Mutter Theresa", "Jesus", "Bell Mort", "Tierschutzaktivist", "Buddha", "Peter Singer", "Al Gore"];
 
 	client.on('connect', function() {
 		console.log('client has connected!');
@@ -88,6 +90,14 @@ $(function() {
 					question2IsSet = false;
 					question3IsSet = false;
 					question4IsSet = false;
+
+					var ethicLowItem = ethicLow[Math.floor(Math.random()*ethicLow.length)],
+						ethicHighItem = ethicHigh[Math.floor(Math.random()*ethicHigh.length)];
+
+					$('.ethic-level-setting__dot-info--left').empty();
+					$('.ethic-level-setting__dot-info--right').empty();
+					$('.ethic-level-setting__dot-info--left').append(ethicLowItem);
+					$('.ethic-level-setting__dot-info--right').append(ethicHighItem);
 
 					$('.letter__address').empty();
 
