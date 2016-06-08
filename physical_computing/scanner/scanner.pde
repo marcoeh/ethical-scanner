@@ -8,6 +8,12 @@ String scannerSerialVal2;  // Data received from the serial port
 
 String input = "";
 
+// Our Products A, B and C
+String[] products = {"9578180660594", "9763671227480", "9527804670266"};
+
+// Our Letter Text
+String letterText = "";
+
 int buttonCancel = 1;
 int buttonYes = 2;
 int buttonNo = 3;
@@ -16,7 +22,7 @@ int buttonState = 4;
 int prevState = 99;
 int state = 100;
 
-/* states: 100: start
+/* states:	 100: start
 	         200: scanned
 	         301: question 1
 	         302: question 2
@@ -33,26 +39,79 @@ int prevQuestion = 99;
 int question = 0;
 String results = "";
 
-String[][] questions = {
+// M-Budget-Produkt
+String[][] questionsProductA = {
+	// Ethic Level 1
 	{"Soll ich das Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
 	 "Stammt das Fleisch von einem einzelnen Tier? Falls nicht, von wie vielen stammt es?",
 	 "Von welcher Stelle des Tierkörpers wurde das Fleischstück herausgeschnitten?",
 	 "Kann ich bedenkenlos Fleisch kaufen, wenn es Schweizer Fleisch ist?"},
+	// Ethic Level 2
 	{"Wird Biofleisch auf die gleiche Art geschlachtet wie nicht-bio Fleisch?",
 	 "Wurde das Tier mit Nahrung gefüttert, das auch in der Schweiz produziert wurde?",
 	 "Wurden den Tieren Antibiotika verabreicht und hat dies schlussendlich gesundheitliche Konsequenzen für mich?",
 	 "Hat der Bauernhof, auf dem das Tier aufgewachsen ist wirklich so schön ausgesehen? Könnte man diesen einmal besuchen?"},
+	// Ethic Level 3
 	{"Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
 	 "Gibt es Teile des Tieres, die nicht verwendet wurden? Wenn ja, können Sie mir sagen welche?",
 	 "Sollte jeder wöchentlich einen fleischfreien Tag einlegen, so dass jährlich 157 Millionen Tiere vor der Schlachtbank verschont werden?",
 	 "Entstehen bei der Tieraufzucht und Fleischverarbeitung nicht deutlich mehr Treibhausgase als bei der Herstellung anderer Gerichte?"},
+	// Ethic Level 4
 	{"Ist es ethisch, ein Tier zu töten, nur weil es Spass macht Fleisch zu essen?",
 	 "Ist es ethisch, dass der durchschnittliche Europäer jährlich 4 Kühe oder Kälber, 4 Schafe, 12 Gänse, 37 Enten, 46 Truthähne, 46 Schweine und 945 Hühner isst?",
 	 "Gehört es zum guten Leben eines Schweines, einmal gegessen zu werden?",
 	 "Wollte das Tier von diesem Siedfleisch einmal gegessen werden?"}
  };
 
-/*
+// Schlachthäuschen-Produkt
+String[][] questionsProductB = {
+	// Ethic Level 1
+	{"Soll ich das Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
+	 "Stammt das Fleisch von einem einzelnen Tier? Falls nicht, von wie vielen stammt es?",
+	 "Von welcher Stelle des Tierkörpers wurde das Fleischstück herausgeschnitten?",
+	 "Kann ich bedenkenlos Fleisch kaufen, wenn es Schweizer Fleisch ist?"},
+	// Ethic Level 2
+	{"Wird Biofleisch auf die gleiche Art geschlachtet wie nicht-bio Fleisch?",
+	 "Wurde das Tier mit Nahrung gefüttert, das auch in der Schweiz produziert wurde?",
+	 "Wurden den Tieren Antibiotika verabreicht und hat dies schlussendlich gesundheitliche Konsequenzen für mich?",
+	 "Hat der Bauernhof, auf dem das Tier aufgewachsen ist wirklich so schön ausgesehen? Könnte man diesen einmal besuchen?"},
+	// Ethic Level 3
+	{"Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
+	 "Gibt es Teile des Tieres, die nicht verwendet wurden? Wenn ja, können Sie mir sagen welche?",
+	 "Sollte jeder wöchentlich einen fleischfreien Tag einlegen, so dass jährlich 157 Millionen Tiere vor der Schlachtbank verschont werden?",
+	 "Entstehen bei der Tieraufzucht und Fleischverarbeitung nicht deutlich mehr Treibhausgase als bei der Herstellung anderer Gerichte?"},
+	// Ethic Level 4
+	{"Ist es ethisch, ein Tier zu töten, nur weil es Spass macht Fleisch zu essen?",
+	 "Ist es ethisch, dass der durchschnittliche Europäer jährlich 4 Kühe oder Kälber, 4 Schafe, 12 Gänse, 37 Enten, 46 Truthähne, 46 Schweine und 945 Hühner isst?",
+	 "Gehört es zum guten Leben eines Schweines, einmal gegessen zu werden?",
+	 "Wollte das Tier von diesem Siedfleisch einmal gegessen werden?"}
+ };
+
+// Weideschlachtung-Produkt
+String[][] questionsProductC = {
+	// Ethic Level 1
+	{"Soll ich das Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
+	 "Stammt das Fleisch von einem einzelnen Tier? Falls nicht, von wie vielen stammt es?",
+	 "Von welcher Stelle des Tierkörpers wurde das Fleischstück herausgeschnitten?",
+	 "Kann ich bedenkenlos Fleisch kaufen, wenn es Schweizer Fleisch ist?"},
+	// Ethic Level 2
+	{"Wird Biofleisch auf die gleiche Art geschlachtet wie nicht-bio Fleisch?",
+	 "Wurde das Tier mit Nahrung gefüttert, das auch in der Schweiz produziert wurde?",
+	 "Wurden den Tieren Antibiotika verabreicht und hat dies schlussendlich gesundheitliche Konsequenzen für mich?",
+	 "Hat der Bauernhof, auf dem das Tier aufgewachsen ist wirklich so schön ausgesehen? Könnte man diesen einmal besuchen?"},
+	// Ethic Level 3
+	{"Wie glücklich war das Tier zum Zeitpunkt, wo es geschlachtet wurde? Hat das Fleisch eine bessere Qualität, wenn das Tier glücklich gestorben ist?",
+	 "Gibt es Teile des Tieres, die nicht verwendet wurden? Wenn ja, können Sie mir sagen welche?",
+	 "Sollte jeder wöchentlich einen fleischfreien Tag einlegen, so dass jährlich 157 Millionen Tiere vor der Schlachtbank verschont werden?",
+	 "Entstehen bei der Tieraufzucht und Fleischverarbeitung nicht deutlich mehr Treibhausgase als bei der Herstellung anderer Gerichte?"},
+	// Ethic Level 4
+	{"Ist es ethisch, ein Tier zu töten, nur weil es Spass macht Fleisch zu essen?",
+	 "Ist es ethisch, dass der durchschnittliche Europäer jährlich 4 Kühe oder Kälber, 4 Schafe, 12 Gänse, 37 Enten, 46 Truthähne, 46 Schweine und 945 Hühner isst?",
+	 "Gehört es zum guten Leben eines Schweines, einmal gegessen zu werden?",
+	 "Wollte das Tier von diesem Siedfleisch einmal gegessen werden?"}
+ };
+
+// questions to be deleted later
 String[][] questions = {
 	{"1-1: Soll ich das Fleisch wegwerfen, wenn es einen Tag über dem Ablaufdatum ist?",
 	 "1-2: Stammt das Fleisch von einem einzelnen Tier? Falls nicht, von wie vielen stammt es?",
@@ -71,7 +130,7 @@ String[][] questions = {
 	 "4-3: Gehört es zum guten Leben eines Schweines, einmal gegessen zu werden?",
 	 "4-4: Wollte das Tier von diesem Siedfleisch einmal gegessen werden?"}
  };
-*/
+
 
 void setup() {
 	client = new MQTTClient(this);
