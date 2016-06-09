@@ -16,7 +16,7 @@ String input = "";
 
 // Our productBarCodes A, B and C
 String[] productBarCodes = {"7610200382849", "9763671227480", "9527804670266"};
-String[] productNames = {"Hamburger M-Budget (Zentralschlachthof)", "Hamburger vom Schlachthäuschen", "Hamburger vom Weideschlachtrind", "Nope"};
+String[] productNames = {"Beefburger M-Budget (Zentralschlachthof)", "Hamburger vom Schlachthäuschen", "Hamburger vom Weideschlachtrind", "Nope"};
 int product = 0;
 
 // Our Letter Text
