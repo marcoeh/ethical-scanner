@@ -201,7 +201,7 @@ $(function() {
 					setTimeout(function() {
 						$('.view--letter').removeClass("is-visible");
 						$('.view--final').addClass("is-active");
-					}, 2000);
+					}, 6000);
 
 					break;
 				case "501":

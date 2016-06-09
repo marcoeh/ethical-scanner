@@ -53,8 +53,12 @@ h1,h2,h3,h4,h5,p {
 .final-screen {
 	@include fontTitle;
 	text-align: center;
-	&-smaller {
-		@include fontBig;
+	&--smaller {
+		font-weight: 600;
+		font-size: 30px;
+		color: $colorWhite;
+		letter-spacing: -0.11px;
+		line-height: 30px !important;
 		text-align: center;
 	}
 	&__wrapper {
@@ -213,7 +217,7 @@ h1,h2,h3,h4,h5,p {
 		height: calc(100% - 120px);
 		overflow: hidden;
 		bottom: $sizeSpacerMain;
-		transition:height 2s steps(30,end);
+		transition:height 6s steps(20,end);
 		&.is-printing {
 			height: calc(0% - 120px);
 		}
