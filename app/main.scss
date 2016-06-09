@@ -50,6 +50,17 @@ h1,h2,h3,h4,h5,p {
 	margin: 0;
 }
 
+.final-screen {
+	@include fontTitle;
+	text-align: center;
+	&-smaller {
+		@include fontBig;
+		text-align: center;
+	}
+	&__wrapper {
+		@include absolutecenter($axis: "both");
+	}
+}
 .view {
 	position: absolute;
 	visibility: hidden;

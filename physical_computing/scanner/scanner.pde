@@ -66,7 +66,8 @@ int state = 100;
 			 303: question 3
 			 304: question 4
 			 400: results
-			 500: done
+			 500: done print
+			 501: done noprint
 */
 
 int prevEthicLevel = 1;
@@ -289,6 +290,7 @@ void serialEvent (Serial scannerSerialPort) {
 	// Check if one of the buttons is pressed
 	if (inByte == buttonYes || inByte == buttonNo) {
 
+
 		// If we are in the state range of the questions
 		if (state > 300 && state < 400) {
 
@@ -330,13 +332,22 @@ void serialEvent (Serial scannerSerialPort) {
 
 		// Jump to next state if button is pressed on results view
 		else if (state == 400 && inByte == buttonYes) {
-			println("Zeit zum Drucken!");
+			println("Drucken!");
 			printRecord = true;
 			state = 500;
 		}
 
+		else if (state == 400 && inByte == buttonNo) {
+			println("Nicht drucken!!");
+			state = 501;
+		}
+
 		// Jump to start if button is pressed on done view
-		else if (state == 500 && inByte == buttonYes) {
+		else if (state >= 500 && inByte == buttonYes) {
+			state = 100;
+		}
+		// Jump to start if button is pressed on done view
+		else if (state >= 500 && inByte == buttonNo) {
 			state = 100;
 		}
 
@@ -353,6 +364,8 @@ void serialEvent (Serial scannerSerialPort) {
 			client.publish("/state", "sorry");
 			println("Yes or No buttons not matching condition!");
 		}
+
+		delay(300);
 
 	} else if (inByte == 10) {
 		ethicLevel = 1;

@@ -94,6 +94,8 @@ $(function() {
 					var ethicLowItem = ethicLow[Math.floor(Math.random()*ethicLow.length)],
 						ethicHighItem = ethicHigh[Math.floor(Math.random()*ethicHigh.length)];
 
+					$('.view--final').removeClass("is-active");
+
 					$('.ethic-level-setting__dot-info--left').empty();
 					$('.ethic-level-setting__dot-info--right').empty();
 					$('.ethic-level-setting__dot-info--left').append(ethicLowItem);
@@ -198,8 +200,15 @@ $(function() {
 
 					setTimeout(function() {
 						$('.view--letter').removeClass("is-visible");
+						$('.view--final').addClass("is-active");
 					}, 2000);
 
+					break;
+				case "501":
+					$('.letter__call-to-print').removeClass("is-visible");
+					$('.view--letter').removeClass("is-visible");
+
+					$('.view--final').addClass("is-active");
 					break;
 				case "sorry":
 					$('.view').addClass("is-shaking");
