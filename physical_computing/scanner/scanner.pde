@@ -432,7 +432,7 @@ void drawDefault() {
 
 	for (int i = 0; i < letterQuestions.length; ++i) {
 		questionsAll += letterQuestions[i];
-		questionsAll += "\n";
+		questionsAll += " ";
 	}
 
 	letterQuestions = new String[0];
