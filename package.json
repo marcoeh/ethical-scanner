@@ -1,7 +1,7 @@
 {
-  "name": "brunch-app",
-  "description": "Description",
-  "author": "Your Name",
+  "name": "Ethical Scanner",
+  "description": "Prototype hacking for an ethical scan device",
+  "author": "Marco Ehrenmann",
   "version": "0.1.0",
   "repository": {
     "type": "git",

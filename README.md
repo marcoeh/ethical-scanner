@@ -1,8 +1,14 @@
 # Ethical Scanner
 
+## Physical Computing
+
+Some physical controls like buttons and a fader are connected to an arduino. Most of the logic is handled by processing. [shiftr.io](https://shiftr.io) is connecting the dots.
+
+## Website
+
 This is a HTML5 application, built with [Brunch](http://brunch.io).
 
-## Getting started
+### Getting started
 * Install (if you don't have them):
     * [Node.js](http://nodejs.org): `brew install node` on OS X
     * [Brunch](http://brunch.io): `npm install -g brunch`
